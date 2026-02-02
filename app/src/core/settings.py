@@ -10,5 +10,10 @@ class Settings(BaseSettings):
     db_port: str | None = None
     debug: bool = False
 
+    model_config = {
+        "env_file": ".env",           # Обязательно!
+        "env_file_encoding": "utf-8"   # Для кириллицы и др. символов
+    }
+
 
 settings = Settings()

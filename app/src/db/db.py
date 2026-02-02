@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from core.settings import settings
 
 engine = create_async_engine(
-    f'postgresql+psycopg2://{settings.db_user}:{settings.db_password}@{settings.db_address}/{settings.db_name}')
+    f'postgresql+asyncpg://{settings.db_user}:{settings.db_password}@{settings.db_address}/{settings.db_name}')
 AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession)
 
 
