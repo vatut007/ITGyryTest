@@ -1,4 +1,5 @@
-from sqlmodel import (CheckConstraint, SQLModel, Field, Relationship, Column,
+from sqlmodel import (CheckConstraint, ForeignKeyConstraint, SQLModel, Field,
+                      Column,
                       DECIMAL)
 from decimal import Decimal
 from typing import Optional
@@ -28,16 +29,13 @@ class Product(SQLModel, table=True):
         foreign_key="category.category_id",
         index=True
     )
-    category: int = Relationship(
-        back_populates="product",
-        sa_relationship_kwargs={
-            "foreign_keys": "[Product.category_id]",
-            "ondelete": "RESTRICT"
-        }
-    )
     __table_args__ = (
         CheckConstraint("quantity > 0",
                         name="ck_product_items_quantity_positive"),
         CheckConstraint("price > 0",
                         name="ck_product_items_price_positive"),
+        ForeignKeyConstraint(
+            ['category_id'], ['category.category_id'],
+            name='fk_orders_client',
+            ondelete='RESTRICT')
     )

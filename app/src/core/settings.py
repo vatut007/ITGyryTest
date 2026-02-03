@@ -11,8 +11,8 @@ class Settings(BaseSettings):
     debug: bool = False
 
     model_config = {
-        "env_file": ".env",           # Обязательно!
-        "env_file_encoding": "utf-8"   # Для кириллицы и др. символов
+        "env_file": ".env",
+        "env_file_encoding": "utf-8"
     }
 
 

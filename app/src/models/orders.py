@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Optional
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Field, ForeignKeyConstraint, SQLModel
 
 
 class Order(SQLModel, table=True):
@@ -19,11 +19,10 @@ class Order(SQLModel, table=True):
         default=datetime.now(),
         nullable=False
     )
-
-    client: int = Relationship(
-        back_populates="order",
-        sa_relationship_kwargs={
-            "foreign_keys": "[Order.client_id]",
-            "ondelete": "RESTRICT"
-        }
+    __table_args__ = (
+        ForeignKeyConstraint(
+            ['client_id'],
+            ['client.client_id'],
+            name='fk_orders_client',
+            ondelete='RESTRICT'),
     )

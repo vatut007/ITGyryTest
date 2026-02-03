@@ -1,5 +1,6 @@
 from decimal import Decimal
-from sqlmodel import DECIMAL, CheckConstraint, Column, Field, SQLModel
+from sqlmodel import (DECIMAL, CheckConstraint, Column,
+                      Field, ForeignKeyConstraint, SQLModel)
 
 
 class OrdersItems(SQLModel, table=True):
@@ -14,4 +15,16 @@ class OrdersItems(SQLModel, table=True):
                         name="ck_orders_items_quantity_positive"),
         CheckConstraint("unit_price > 0",
                         name="ck_orders_items_unit_price_positive"),
+        ForeignKeyConstraint(
+            ["order_id"],
+            ["order.order_id"],
+            name="fk_orderitems_order",
+            ondelete="CASCADE"
+        ),
+        ForeignKeyConstraint(
+            ["product_id"],
+            ["product.product_id"],
+            name="fk_orderitems_product",
+            ondelete="RESTRICT"
+        ),
     )
