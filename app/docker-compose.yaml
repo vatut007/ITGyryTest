@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    networks: 
+      - shop_network
+    environment:
+      POSTGRES_DB: shop_db
+      POSTGRES_USER: super
+      POSTGRES_PASSWORD: super
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  web:
+    build: ./
+    container_name: shop_api
+    networks: 
+      - shop_network
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_NAME
+      - DB_PASSWORD
+      - DB_USER
+      - DB_ADDRESS
+      - DB_PORT
+    restart: unless-stopped
+
+networks: 
+  shop_network: 
+    driver: bridge 
+volumes:
+  postgres_data:

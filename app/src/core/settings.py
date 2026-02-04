@@ -1,19 +1,18 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=('.env',
+                                                './env'
+                                                '../.env',
+                                                '../../.env'))
     project_name: str = "app"
-    db_name: str | None = None
-    db_password: str | None = None
-    db_user: str | None = None
-    db_address: str | None = None
-    db_port: str | None = None
+    db_name: str
+    db_password: str
+    db_user: str
+    db_address: str
+    db_port: str
     debug: bool = False
-
-    model_config = {
-        "env_file": ".env",
-        "env_file_encoding": "utf-8"
-    }
 
 
 settings = Settings()

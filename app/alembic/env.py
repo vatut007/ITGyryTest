@@ -18,7 +18,8 @@ config = context.config
 # This line sets up loggers basically.
 config.set_main_option(
     'sqlalchemy.url',
-    f'postgresql+asyncpg://{settings.db_user}:{settings.db_password}@{settings.db_address}/{settings.db_name}')
+    f'postgresql+asyncpg://{settings.db_user}:{settings.db_password}@{settings.db_address}:{settings.db_port}/{settings.db_name}')
+print(f'postgresql+asyncpg://{settings.db_user}:{settings.db_password}@{settings.db_address}:{settings.db_port}/{settings.db_name}')
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
