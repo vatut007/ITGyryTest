@@ -1,4 +1,4 @@
-from sqlmodel import ForeignKeyConstraint, SQLModel, Field
+from sqlmodel import SQLModel, Field
 from typing import Optional
 
 
@@ -16,13 +16,6 @@ class Category(SQLModel, table=True):
     parent_id: Optional[int] = Field(
         nullable=True,
         foreign_key="category.category_id",
-        index=True
-    )
-    __table_args__ = (
-        ForeignKeyConstraint(
-             ["parent_id"],
-             ["category.category_id"],
-             name="fk_categories_parent",
-             ondelete="SET NULL"
-             ),
+        index=True,
+        ondelete="SET NULL"
     )

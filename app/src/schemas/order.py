@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from decimal import Decimal
 
 
 class OrderItemsCreate(BaseModel):
@@ -8,5 +9,4 @@ class OrderItemsCreate(BaseModel):
 
 
 class OrderItemsCreateData(OrderItemsCreate):
-    unit_price: float = Field()
-    
+    unit_price: Decimal = Field()

@@ -1,8 +1,8 @@
-"""add all models
+"""all models
 
-Revision ID: dd8ea6a1a88f
+Revision ID: efbf29d45f40
 Revises: c1f745e15f13
-Create Date: 2026-02-03 20:27:41.622698
+Create Date: 2026-02-04 15:03:47.100429
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'dd8ea6a1a88f'
+revision: str = 'efbf29d45f40'
 down_revision: Union[str, Sequence[str], None] = 'c1f745e15f13'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -25,8 +25,7 @@ def upgrade() -> None:
     sa.Column('category_id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('parent_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['parent_id'], ['category.category_id'], ),
-    sa.ForeignKeyConstraint(['parent_id'], ['category.category_id'], name='fk_categories_parent', ondelete='SET NULL'),
+    sa.ForeignKeyConstraint(['parent_id'], ['category.category_id'], ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('category_id')
     )
     op.create_index(op.f('ix_category_parent_id'), 'category', ['parent_id'], unique=False)
@@ -40,8 +39,7 @@ def upgrade() -> None:
     sa.Column('order_id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('client_id', sa.Integer(), nullable=False),
     sa.Column('order_date', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['client_id'], ['client.client_id'], ),
-    sa.ForeignKeyConstraint(['client_id'], ['client.client_id'], name='fk_orders_client', ondelete='RESTRICT'),
+    sa.ForeignKeyConstraint(['client_id'], ['client.client_id'], ondelete='RESTRICT'),
     sa.PrimaryKeyConstraint('order_id')
     )
     op.create_index(op.f('ix_order_client_id'), 'order', ['client_id'], unique=False)
@@ -53,8 +51,7 @@ def upgrade() -> None:
     sa.Column('category_id', sa.Integer(), nullable=False),
     sa.CheckConstraint('price > 0', name='ck_product_items_price_positive'),
     sa.CheckConstraint('quantity > 0', name='ck_product_items_quantity_positive'),
-    sa.ForeignKeyConstraint(['category_id'], ['category.category_id'], ),
-    sa.ForeignKeyConstraint(['category_id'], ['category.category_id'], name='fk_orders_client', ondelete='RESTRICT'),
+    sa.ForeignKeyConstraint(['category_id'], ['category.category_id'], ondelete='RESTRICT'),
     sa.PrimaryKeyConstraint('product_id')
     )
     op.create_index(op.f('ix_product_category_id'), 'product', ['category_id'], unique=False)

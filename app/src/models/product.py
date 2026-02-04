@@ -27,15 +27,12 @@ class Product(SQLModel, table=True):
     category_id: int = Field(
         nullable=False,
         foreign_key="category.category_id",
-        index=True
+        index=True,
+        ondelete='RESTRICT'
     )
     __table_args__ = (
-        CheckConstraint("quantity > 0",
+        CheckConstraint("quantity >= 0",
                         name="ck_product_items_quantity_positive"),
-        CheckConstraint("price > 0",
+        CheckConstraint("price >= 0",
                         name="ck_product_items_price_positive"),
-        ForeignKeyConstraint(
-            ['category_id'], ['category.category_id'],
-            name='fk_orders_client',
-            ondelete='RESTRICT')
     )
