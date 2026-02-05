@@ -4,8 +4,10 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 RUN poetry config virtualenvs.create false
 RUN poetry install
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 COPY ./ .
-WORKDIR /app/src
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 
