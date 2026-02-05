@@ -2,7 +2,7 @@
 [Задание](https://docs.google.com/document/d/1IXCY12SSbktV2XM_X9tuIdnfpj1ZEnN05wCOhef5wpk/edit?tab=t.0)
 ## Схема база данных. Задание 1
 
-Ознакомится со схемой базы данных можно по [ссылке](https://drawsql.app/teams/vatut007/diagrams/itgyrytest)
+Ознакомится со схемой базы данных можно по [ссылке](https://drawsql.app/teams/vatut007/diagrams/itgyrytest) либо в файле dataBase.ddl
 
 ## SQl запросы. Задание 2 
 
