@@ -39,7 +39,7 @@ async def add_product_to_order(
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND,
                             detail="Продукт с таким ID не найден")
     if ordersItemsResponse.quantity > product.quantity:
-        raise HTTPException(status_code=HTTPStatus.OK,
+        raise HTTPException(status_code=HTTPStatus.UNPROCESSABLE_ENTITY,
                             detail="Продукт с таким ID не найден в количестве, указанном в запросе")
     unit_price = product.price
     if orderItems:
